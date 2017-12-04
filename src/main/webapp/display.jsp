@@ -27,50 +27,84 @@
 
 	<div class="container">
 
-		<p>Pagination using Bootstrap</p>
 
-		<ul class="pagination">
+		<div class="row">
 
-			<c:if test="${currentPage != 1}">
-				<%-- <a href="employee.do?page=${currentPage - 1}">&nbsp;Previous</a> --%>
-				<li class="page-item"><a class="page-link"
-					href="employee.do?page=${currentPage - 1}">Previous</a></li>
-			</c:if>
+			<div class="col-sm-2"></div>
 
-			<c:forEach begin="1" end="${noOfPages}" var="i">
-				<c:choose>
-					<c:when test="${currentPage eq i}">
-						<c:if test="${i ge currentStartPageNo && i le currentEndPageNo}">
-							<%-- ${i}&nbsp;&nbsp; --%>
-							<li class="page-item active"><a class="page-link" href="#">${i}</a></li>
-						</c:if>
-					</c:when>
-					<c:otherwise>
+			<div class="col-sm-8">
+				<p>Pagination using Bootstrap</p>
+			</div>
 
-						<c:if test="${i ge currentStartPageNo && i le currentEndPageNo}">
-							<%-- <a href="employee.do?page=${i}">${i}&nbsp;</a> --%>
-							<li class="page-item"><a class="page-link"
-								href="employee.do?page=${i}">${i}&nbsp;</a></li>
+			<div class="col-sm-2"></div>
 
-						</c:if>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
+		</div>
+		<div class="row">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8">
 
-			<c:if test="${currentPage lt noOfPages}">
-				<%-- <a href="employee.do?page=${currentPage + 1}">&nbsp;Next</a> --%>
-				<li class="page-item"><a class="page-link"
-					href="employee.do?page=${currentPage + 1}">Next</a></li>
-			</c:if>
+				<ul class="pagination">
+
+					<c:if test="${currentPage != 1}">
+						<li class="page-item"><a class="page-link"
+							href="employee.do?page=${currentPage - 1}">Previous</a></li>
+					</c:if>
+
+					<c:forEach begin="1" end="${noOfPages}" var="i">
+						<c:choose>
+							<c:when test="${currentPage eq i}">
+								<c:if test="${i ge currentStartPageNo && i le currentEndPageNo}">
+									<li class="page-item active"><a class="page-link" href="#">${i}</a></li>
+								</c:if>
+							</c:when>
+							<c:otherwise>
+
+								<c:if test="${i ge currentStartPageNo && i le currentEndPageNo}">
+									<li class="page-item"><a class="page-link"
+										href="employee.do?page=${i}">${i}&nbsp;</a></li>
+								</c:if>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+
+					<c:if test="${currentPage lt noOfPages}">
+						<li class="page-item"><a class="page-link"
+							href="employee.do?page=${currentPage + 1}">Next</a></li>
+					</c:if>
+				</ul>
 
 
-		</ul>
+				<table border="1" cellpadding="5" cellspacing="5">
+					<tr>
+						<th>Employee ID</th>
+						<th>Empployee Name</th>
+						<th>Salary</th>
+						<th>Department</th>
+						<th>State</th>
+						<th>City</th>
+						<th>Country</th>
+					</tr>
+					<c:forEach var="employee" items="${employeeList}">
+						<tr>
+							<td>${employee.id}</td>
+							<td>${employee.name}</td>
+							<td>${employee.salary}</td>
+							<td>${employee.department}</td>
+							<td>${employee.state}</td>
+							<td>${employee.city}</td>
+							<td>${employee.country}</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
 
-	</div>
 
 
 
-	<table border="0" cellpadding="0" cellspacing="0">
+
+		<%-- <table border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td><c:if test="${currentPage != 1}">
 					<a href="employee.do?page=${currentPage - 1}">&nbsp;Previous</a>
@@ -93,60 +127,37 @@
 				</c:if></td>
 		</tr>
 	</table>
+ --%>
 
 
 
+		<br>
 
-	<br>
-	<br>
-	<table border="1" cellpadding="5" cellspacing="5">
-		<tr>
-			<th>Employee ID</th>
-			<th>Empployee Name</th>
-			<th>Salary</th>
-			<th>Department</th>
-			<th>State</th>
-			<th>City</th>
-			<th>Country</th>
-		</tr>
-		<c:forEach var="employee" items="${employeeList}">
+		<table border="0" cellpadding="0" cellspacing="0">
 			<tr>
-				<td>${employee.id}</td>
-				<td>${employee.name}</td>
-				<td>${employee.salary}</td>
-				<td>${employee.department}</td>
-				<td>${employee.state}</td>
-				<td>${employee.city}</td>
-				<td>${employee.country}</td>
+				<td><c:if test="${currentPage != 1}">
+						<a href="employee.do?page=${currentPage - 1}">&nbsp;Previous</a>
+					</c:if> <c:forEach begin="1" end="${noOfPages}" var="i">
+						<c:choose>
+							<c:when test="${currentPage eq i}">
+								<c:if test="${i ge currentStartPageNo && i le currentEndPageNo}">
+									<!-- <td> -->${i}&nbsp;&nbsp;<!-- </td> -->
+								</c:if>
+							</c:when>
+							<c:otherwise>
+
+								<c:if test="${i ge currentStartPageNo && i le currentEndPageNo}">
+									<a href="employee.do?page=${i}">${i}&nbsp;</a>
+								</c:if>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach> <c:if test="${currentPage lt noOfPages}">
+						<a href="employee.do?page=${currentPage + 1}">&nbsp;Next</a>
+					</c:if></td>
 			</tr>
-		</c:forEach>
-	</table>
-	<%-- <table border="0" cellpadding="0" cellspacing="0">
-		<tr>
-			<td><c:if test="${currentPage != 1}">
-					<a href="employee.do?page=${currentPage - 1}">&nbsp;Previous</a>
-				</c:if> <c:forEach begin="1" end="${noOfPages}" var="i">
-					<c:choose>
-						<c:when test="${currentPage eq i}">
-							<c:if test="${i ge currentStartPageNo && i le currentEndPageNo}">
-								<!-- <td> -->${i}&nbsp;&nbsp;<!-- </td> -->
-							</c:if>
-						</c:when>
-						<c:otherwise>
+		</table>
 
-							<c:if test="${i ge currentStartPageNo && i le currentEndPageNo}">
-								<a href="employee.do?page=${i}">${i}&nbsp;</a>
-							</c:if>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach> <c:if test="${currentPage lt noOfPages}">
-					<a href="employee.do?page=${currentPage + 1}">&nbsp;Next</a>
-				</c:if></td>
-		</tr>
-	</table> --%>
-
-	<br>
-	<br>
-
+		<br> <br>
+	</div>
 </body>
 </html>
